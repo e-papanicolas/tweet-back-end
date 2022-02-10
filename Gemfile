@@ -51,6 +51,7 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "byebug", platforms: %i[ mri mingw x64_mingw ]
+  gem "faker", "~> 2.19"
 end
 
 group :development do
@@ -66,3 +67,7 @@ end
 
 
 gem "active_model_serializers", "~> 0.10.13"
+
+gem "rack-cors", "~> 1.1"
+gem "dotenv", "~> 2.7"
+gem "jwt", "~> 2.3"
