@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :events
+  resources :events, only: [:create]
  
   resources :users, only: [:create] #create - signup
   post '/login', to: 'auth#create'
