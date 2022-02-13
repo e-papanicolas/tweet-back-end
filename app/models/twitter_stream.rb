@@ -50,7 +50,6 @@ class TwitterStream < ApplicationRecord
       raise "An error occurred while adding rules: #{response.status_message}" unless response.success?
       new_rule = JSON.parse(response.body)
       new_id = new_rule["data"][0]["id"]
-      byebug
       event.rule_id = new_id
   end
 
