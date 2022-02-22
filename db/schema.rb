@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_13_163819) do
+ActiveRecord::Schema.define(version: 2022_02_22_184411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,21 @@ ActiveRecord::Schema.define(version: 2022_02_13_163819) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tweets", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.string "name"
+    t.string "username"
+    t.string "tweeted_at"
+    t.integer "retweet_count"
+    t.integer "reply_count"
+    t.integer "like_count"
+    t.integer "quote_count"
+    t.string "hashtags", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_tweets_on_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "first_name"
@@ -32,6 +47,8 @@ ActiveRecord::Schema.define(version: 2022_02_13_163819) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "bio"
   end
 
+  add_foreign_key "tweets", "events"
 end
