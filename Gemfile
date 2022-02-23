@@ -74,3 +74,4 @@ gem "jwt", "~> 2.3"
 gem 'typhoeus'
 gem 'json'
 gem 'figaro'
+gem 'cloudinary'

@@ -1,4 +1,23 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :username, :first_name, :last_name, :email, :bio
+
+  attributes :id, :username, :first_name, :last_name, :email, :bio, :get_image
+
+  def get_image
+    self.object.get_image_url()
+  end
+
+  # def serialize_user 
+  #   {
+  #     user: {
+  #       id: user.id,
+  #       username: user.username,
+  #       first_name: user.first_name,
+  #       last_name: user.last_name,
+  #       email: user.email,
+  #       bio: user.bio,
+  #       image: image.get_image_url()
+  #     }
+  #   }
+  # end
 
 end

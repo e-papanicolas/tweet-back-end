@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def index  
-    render json: User.all, serializer: UserSerializer
+    render json: User.all
   end
   
   def create 
@@ -16,8 +16,8 @@ class UsersController < ApplicationController
   end
 
   def update 
-    user = current_user
-    user.update!(user_params)
+    user = get_user
+    user.update!(update_params)
     render json: { user: UserSerializer.new(user) }
   end
 
@@ -33,12 +33,16 @@ class UsersController < ApplicationController
 
   private
 
-  # def get_user
-  #   User.find(params[:user_id])
-  # end
+  def get_user
+    User.find_by(id: params[:id])
+  end
+
+  def update_params
+    params.permit(:image, :bio)
+  end
 
   def user_params
-    params.require(:user).permit(:username, :password, :email, :first_name, :last_name, :bio)
+    params.require(:user).permit(:username, :password, :email, :first_name, :last_name, :bio, :image)
   end
   
 end
