@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       @token = encode_token({user_id: @user.id})
-      render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
+      render json: { user: UserCreateSerializer.new(@user), jwt: @token }, status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -38,11 +38,11 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.permit(:image, :bio)
+    params.permit(:image, :bio, :username, :first_name, :last_name)
   end
 
   def user_params
-    params.require(:user).permit(:username, :password, :email, :first_name, :last_name, :bio, :image)
+    params.require(:user).permit(:username, :password, :email, :first_name, :last_name)
   end
   
 end

@@ -12,8 +12,13 @@ class User < ApplicationRecord
     message: "please enter a valid email address" }
 
   def get_image_url
-    url_for(self.image)
+    if self.image
+     url_for(self.image)
+    else
+      url_for('../assets/images/default.jpeg')
+    end
   end
+
 end
 
 # URI::MailTo::EMAIL_REGEXP
