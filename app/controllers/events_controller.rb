@@ -7,11 +7,18 @@ class EventsController < ApplicationController
 
   def show 
     event = get_event
+   
     render json: event, serializer: EventSerializer
+    
+    ActionCable.server.broadcast("tweet_#{event.rule_id}", { body: "testing testing"});
   end
 
   def create 
-    ActionCable.server.broadcast("tweet_1492913662872465411", { body: "testing testing"});
+    user = current_user
+    new_event = Event.new(event_params)
+    new_event.save
+    render json: new_event, serializer: EventSerializer, status: :created
+    # ActionCable.server.broadcast("tweet_#{event.rule_id}", { body: "testing testing"});
   end
 
   def update 
@@ -29,10 +36,10 @@ class EventsController < ApplicationController
   private
 
   def get_event 
-    Event.find_by(id: params[:event_id])
+    Event.find_by(id: params[:id])
   end
 
   def event_params 
-    params.permit(:name, :date, :hashtag, :rule_id)
+    params.permit(:name, :date, :hashtag, :rule_id, :user_id)
   end
 end

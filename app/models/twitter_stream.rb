@@ -4,13 +4,14 @@ class TwitterStream < ApplicationRecord
   BEARER_TOKEN = ENV["TWITTER_BEARER_TOKEN"]
   
   def self.stream_connect
+    puts "Connecting to Twitter Stream"
       params = {
           "expansions": "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id",
           "tweet.fields": "attachments,author_id,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang",
       }
 
       options = {
-          timeout: 60,
+          timeout: 20,
           method: 'get',
           headers: {
               "User-Agent": "v2FilteredStreamRuby",
@@ -101,7 +102,11 @@ class TwitterStream < ApplicationRecord
       puts response
       raise "An error occured while deleting your rules: #{response.status_message}" unless response.success?
   end
-  
-  
-  
+
+#   timeout = 0
+#   while true
+#     stream_connect
+#     sleep 2 ** timeout
+#     timeout += 1
+#   end
 end
