@@ -12,18 +12,6 @@ class EventMaker < ApplicationRecord
 
       @twitter_stream = TwitterStream.stream_connect(@event)
     
-      # @twitter = Twitter::JSONStream.connect(
-      #   :path => '/1/statuses/filter.json?track=ruby',
-      #   :auth => "bearer #{ENV["TWITTER_BEARER_TOKEN"]}",
-      #   :ssl => true
-      # )
-    
-      # @twitter_stream.each_item do |tweet|
-      #   @tweet = JSON.parse(tweet)
-      #   @tweet = Tweet.create(@tweet.data)
-      #   @channel.push "#{tweet['user']['screen_name']}: #{tweet['text']}"
-      # end
-    
     
       EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080, :debug => true) do |ws|
     

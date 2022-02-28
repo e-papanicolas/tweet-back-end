@@ -8,7 +8,8 @@ class TwitterStream < ApplicationRecord
     puts "Connecting to Twitter Stream"
       params = {
           "expansions": "author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id",
-          "tweet.fields": "author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,public_metrics",
+          "tweet.fields": "author_id,created_at,entities,attachments,geo,id,in_reply_to_user_id,lang,public_metrics",
+          "user.fields": "name,username,verified,profile_image_url",
       }
 
       options = {

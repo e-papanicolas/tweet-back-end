@@ -22,7 +22,6 @@ class EventsController < ApplicationController
     new_event = Event.new(event_params)
     new_event.save
     render json: new_event, serializer: EventSerializer, status: :created
-    # ActionCable.server.broadcast("tweet_#{event.rule_id}", { body: "testing testing"});
   end
 
   def update 
