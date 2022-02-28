@@ -1,17 +1,18 @@
 class TwitterStream < ApplicationRecord
+
   STREAM_URL = "https://api.twitter.com/2/tweets/search/stream"
   RULES_URL = "https://api.twitter.com/2/tweets/search/stream/rules"
   BEARER_TOKEN = ENV["TWITTER_BEARER_TOKEN"]
   
-  def self.stream_connect
+  def self.stream_connect(event)
     puts "Connecting to Twitter Stream"
       params = {
-          "expansions": "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id",
-          "tweet.fields": "attachments,author_id,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang",
+          "expansions": "author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id",
+          "tweet.fields": "author_id,created_at,entities,geo,id,in_reply_to_user_id,lang,public_metrics",
       }
 
       options = {
-          timeout: 20,
+          timeout: 30,
           method: 'get',
           headers: {
               "User-Agent": "v2FilteredStreamRuby",
@@ -22,7 +23,7 @@ class TwitterStream < ApplicationRecord
 
       request = Typhoeus::Request.new(STREAM_URL, options)
       request.on_body do |chunk|
-          puts chunk
+        ActionCable.server.broadcast("tweet_#{event.rule_id}", { body: chunk});
       end
       request.run
   end

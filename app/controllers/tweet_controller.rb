@@ -9,9 +9,18 @@ class TweetController < ApplicationController
     render json: tweet, serializer: TweetSerializer
   end
 
+  def create 
+    new_tweet = Tweet.create(tweet_params)
+    
+  end
+
   private
 
   def get_tweet 
     Tweet.find_by(id: params[:tweet_id])
+  end
+
+  def tweet_params
+    params.permit(:data)
   end
 end

@@ -33,10 +33,10 @@ module TweetBackEnd
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    config.after_initialize do
-      # TODO: initialize twitter stream and link to action cable 
-      TwitterStream.stream_connect
-    end
+    # config.after_initialize do
+    #   # TODO: initialize twitter stream and link to action cable 
+    #   TwitterStream.stream_connect
+    # end
 
     # Configuration for the application, engines, and railties goes here.
     #

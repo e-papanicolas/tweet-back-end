@@ -7,10 +7,14 @@ class EventsController < ApplicationController
 
   def show 
     event = get_event
-   
     render json: event, serializer: EventSerializer
-    
-    ActionCable.server.broadcast("tweet_#{event.rule_id}", { body: "testing testing"});
+  end
+  
+  def start_streaming 
+    puts "Starting streaming"
+    event = get_event
+    ActionCable.server.broadcast("tweet_#{event.rule_id}", { body: "starting twitter streaming"});
+    EventMaker.start(event)
   end
 
   def create 
