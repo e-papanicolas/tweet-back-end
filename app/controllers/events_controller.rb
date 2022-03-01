@@ -32,8 +32,9 @@ class EventsController < ApplicationController
 
   def destroy 
     event = get_event 
+    TwitterStream.delete_single_rule(event.rule_id)
     event.destroy
-    head :no_content
+    render json: Event.all
   end
 
   private
@@ -43,6 +44,6 @@ class EventsController < ApplicationController
   end
 
   def event_params 
-    params.permit(:name, :date, :hashtag, :rule_id, :user_id)
+    params.permit(:name, :timeout, :hashtag, :rule_id, :user_id) 
   end
 end

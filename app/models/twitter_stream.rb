@@ -7,13 +7,14 @@ class TwitterStream < ApplicationRecord
   def self.stream_connect(event)
     puts "Connecting to Twitter Stream"
       params = {
-          "expansions": "author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id",
+          "expansions": "attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id",
           "tweet.fields": "author_id,created_at,entities,attachments,geo,id,in_reply_to_user_id,lang,public_metrics",
           "user.fields": "name,username,verified,profile_image_url",
+          "media.fields": "preview_image_url"
       }
 
       options = {
-          timeout: 30,
+          timeout: event.timeout,
           method: 'get',
           headers: {
               "User-Agent": "v2FilteredStreamRuby",
@@ -29,13 +30,13 @@ class TwitterStream < ApplicationRecord
       request.run
   end
   
+  # depending on access level in twitter developer, this will throw errors when the limit of rules is exceeded
   def self.new_rule(event)
       # If the event already has a hashtag associated with it update that hashtag.
       if(event.rule_id)
           delete_single_rule(event.rule_id)
       end
 
-      # TODO: this method expects hashtag to already have its own # consider adding some sort of validation there.
       payload = {
           add: [{'value': event.hashtag, 'tag': event.hashtag }]
       }
