@@ -1,5 +1,4 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :name, :timeout, :hashtag, :rule_id
+  attributes :id, :name, :timeout, :hashtag, :rule_id, :tweets
 
-  has_many :tweets, serializer: TweetSerializer
 end

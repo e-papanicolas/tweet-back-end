@@ -1,9 +1,9 @@
 class EventsController < ApplicationController
   
-  def index 
-    user = current_user
-    render json: user.events, status: :ok
-  end
+  # def index 
+  #   user = current_user
+  #   render json: user.events, status: :ok
+  # end
 
   def show 
     event = get_event
@@ -24,11 +24,11 @@ class EventsController < ApplicationController
     render json: new_event, serializer: EventSerializer, status: :created
   end
 
-  def update 
-    event = get_event 
-    event.update!(event_params)
-    render json: event, serializer: EventSerializer
-  end
+  # def update 
+  #   event = get_event 
+  #   event.update!(event_params)
+  #   render json: event, serializer: EventSerializer
+  # end
 
   def destroy 
     event = get_event 
@@ -44,6 +44,6 @@ class EventsController < ApplicationController
   end
 
   def event_params 
-    params.permit(:name, :timeout, :hashtag, :rule_id, :user_id) 
+    params.permit(:name, :timeout, :hashtag, :rule_id, :user_id, :id) 
   end
 end
