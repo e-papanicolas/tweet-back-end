@@ -8,18 +8,4 @@ class UserSerializer < ActiveModel::Serializer
     self.object.get_image_url()
   end
 
-  # def serialize_user 
-  #   {
-  #     user: {
-  #       id: user.id,
-  #       username: user.username,
-  #       first_name: user.first_name,
-  #       last_name: user.last_name,
-  #       email: user.email,
-  #       bio: user.bio,
-  #       image: image.get_image_url()
-  #     }
-  #   }
-  # end
-
 end

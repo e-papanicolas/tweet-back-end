@@ -12,11 +12,9 @@ class User < ApplicationRecord
     message: "please enter a valid email address" }
 
   def get_image_url
-    if self.image
-     url_for(self.image)
-    else
-      url_for('../assets/images/default.jpeg')
-    end
+    url_for(self.image) 
+  rescue NoMethodError 
+    url_for('../images/default-user-image.png')
   end
 
 end
