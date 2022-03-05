@@ -1,9 +1,6 @@
 class EventsController < ApplicationController
-  
-  # def index 
-  #   user = current_user
-  #   render json: user.events, status: :ok
-  # end
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_response
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
   def show 
     event = get_event
@@ -14,7 +11,7 @@ class EventsController < ApplicationController
     puts "Starting streaming"
     event = get_event
     ActionCable.server.broadcast("tweet_#{event.rule_id}", { body: "starting twitter streaming"});
-    EventMaker.start(event)
+    TwitterStream.stream_connect(event)
   end
 
   def create 
@@ -23,12 +20,6 @@ class EventsController < ApplicationController
     new_event.save
     render json: new_event, serializer: EventSerializer, status: :created
   end
-
-  # def update 
-  #   event = get_event 
-  #   event.update!(event_params)
-  #   render json: event, serializer: EventSerializer
-  # end
 
   def destroy 
     event = get_event 

@@ -2,10 +2,10 @@ class ApplicationController < ActionController::Base
   before_action :authorized
   skip_before_action :verify_authenticity_token
 
-  # before production secret needs to be stored in env file
+  secret = ENV["JWT_SECRET"]
 
   def encode_token(payload)
-    JWT.encode(payload, 'my_secret')
+    JWT.encode(payload, secret)
   end
 
   def auth_header
@@ -16,10 +16,10 @@ class ApplicationController < ActionController::Base
     if auth_header
       token = auth_header.split(' ')[1]
       begin  
-        JWT.decode(token, 'my_secret', true, algorithm: 'HS256') 
+        JWT.decode(token, secret, true, algorithm: 'HS256') 
       rescue JWT::DecodeError
         nil
-      end
+      end 
     end
   end
 
@@ -37,4 +37,13 @@ class ApplicationController < ActionController::Base
   def authorized
     render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
   end
+
+  def render_unprocessable_response(invalid)
+    render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+  end 
+
+  def render_not_found_response
+    render json: { error: "Not found"}, status: :not_found
+  end
+
 end

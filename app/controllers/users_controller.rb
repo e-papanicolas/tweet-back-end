@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
+rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_response
+rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
   def index  
     render json: User.all
@@ -45,5 +47,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :password, :email, :first_name, :last_name)
   end
-  
+
 end

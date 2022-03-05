@@ -15,7 +15,7 @@ class TwitterStream < ApplicationRecord
 
       options = {
           timeout: event.timeout,
-          method: 'get',
+          method: 'get', 
           headers: {
               "User-Agent": "v2FilteredStreamRuby",
               "Authorization": "Bearer #{BEARER_TOKEN}"
