@@ -69,7 +69,7 @@ end
 gem "active_model_serializers", "~> 0.10.13"
 
 gem "rack-cors", "~> 1.1"
-# gem "dotenv", "~> 2.7"
+gem "dotenv", "~> 2.7"
 gem "jwt", "~> 2.3"
 gem 'typhoeus'
 gem 'json'
