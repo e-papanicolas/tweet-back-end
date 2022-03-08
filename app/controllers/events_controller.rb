@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     event = get_event
     TwitterStream.delete_single_rule(event.rule_id)
     event.update(event_params)
-    event.save
+    # event.save
     render json: event, serializer: EventSerializer
   end
 
