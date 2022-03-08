@@ -2,6 +2,11 @@ class EventsController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_response
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
+  def index 
+    user = current_user
+    render json: user.events
+  end
+
   def show 
     event = get_event
     render json: event, serializer: EventSerializer
@@ -46,7 +51,4 @@ class EventsController < ApplicationController
     params.permit(:name, :timeout, :hashtag, :rule_id, :user_id, :id) 
   end
 
-  def update_params
-    params.permit(:name, :timeout, :hashtag)
-  end
 end
