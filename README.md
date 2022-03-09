@@ -13,5 +13,6 @@ To run this app, after starting the PostgreSQL server, run `bundle install`, `ra
 - Active Storage for uploading image attachments
 - Action Cable web sockets
 - JWT/BCrypt for Auth
+- Twitter Streaming API
 
 [Front-end here](https://github.com/e-papanicolas/tweet-front-end).
