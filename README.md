@@ -1,4 +1,4 @@
-# Tweet Stream App
+# TweetStream
 
 This app was created to be able to stream tweets in real time using Twitter's Streaming API endpoint instead of a REST API. Users can log in and create a profile. Users are able to upload a profile picture which uses Active Storage to attach and Cloudinary to store the images. Images are not stored in the PostgreSQL database.
 
