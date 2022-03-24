@@ -106,7 +106,7 @@ class TwitterStream < ApplicationRecord
       puts response
       raise "An error occured while deleting your rules: #{response.status_message}" unless response.success?
   end
-
+# optional for timeout to be continuous
 #   timeout = 0
 #   while true
 #     stream_connect
