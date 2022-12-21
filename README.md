@@ -15,6 +15,8 @@ To run this app, after starting the PostgreSQL server, run `bundle install`, `ra
 - JWT/BCrypt for Auth
 - Twitter Streaming API
 
-Watch a demo of this project [on youtube](https://www.youtube.com/watch?v=urTOZf8Z2A4)
+## Links
+
+Watch a demo of this project [on youtube](https://www.youtube.com/watch?v=urTOZf8Z2A4).
 
 Take a look at the [front end here](https://github.com/e-papanicolas/tweet-front-end).
